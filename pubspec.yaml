@@ -1,0 +1,30 @@
+name: stampa
+description: A QR code scanner for Surge Café
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  qr_code_scanner: ^1.0.1
+  mobile_scanner: ^6.0.7 
+  http: ^1.1.0
+  vibration: ^1.8.1
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/Stampalogo1.png"
+
+flutter:
+  uses-material-design: true
