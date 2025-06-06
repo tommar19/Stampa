@@ -20,11 +20,24 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.4
 
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/Stampalogo1.png"
+  image_path: "assets/app-icon.jpeg"
+
+flutter_native_splash:
+  color: "#014232"  # Fondo verde
+  image: assets/splashed.jpeg  # Tu logo
+  android: true
+  ios: true
+  android_12:
+    color: "#014232"
+    image: assets/splashed.jpeg 
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/stampa-logo.png
+    - assets/Logo-16.png

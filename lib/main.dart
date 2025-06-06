@@ -114,7 +114,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        backgroundColor: Colors.black.withOpacity(0.9), // Fondo oscuro como en la app
+        backgroundColor: const Color(0xFF014232), // Dark green background (#014232)
         contentPadding: const EdgeInsets.all(16), // Espaciado interno
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -126,12 +126,19 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
               children: [
                 // Icono del cliente
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  width: 60, // Ancho fijo
+                  height: 60, // Alto fijo
                   decoration: BoxDecoration(
-                    color: Colors.grey[800], // Fondo gris oscuro para el ícono
+                    color: const Color(0xFFF7EFE8), // Fondo gris oscuro para el ícono
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.person, color: Colors.white, size: 24),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bordes redondeados para la imagen
+                    child: Image.asset(
+                      'assets/Logo-16.png',
+                      fit: BoxFit.fill, // La imagen se ajusta dentro del contenedor
+                    ),
+                  ),
                 ),
                 // Estado siempre "Activo"
                 Container(
@@ -185,7 +192,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
             LinearProgressIndicator(
               value: stamps / 8, // Progreso basado en sellos
               backgroundColor: Colors.grey[800],
-              color: Colors.green,
+              color: const Color(0xFFE46C31), // Orange progress bar (#E46C31)
               minHeight: 8,
               borderRadius: BorderRadius.circular(4),
             ),
@@ -227,7 +234,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
           Center(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent, // Color destacado como en la app
+                backgroundColor: const Color(0xFFE46C31), // Orange OK button (#E46C31)
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
               ),
@@ -254,7 +261,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: const Text('Error'),
+        backgroundColor: const Color(0xFF014232), // Dark green background (#014232)
+        title: const Text('Error', style: TextStyle(color: Colors.white)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -266,7 +274,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
         actions: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.deepPurpleAccent,
+              backgroundColor: const Color(0xFFE46C31), // Orange OK button (#E46C31)
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             ),
             onPressed: () {
@@ -276,7 +284,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
                 controller.start();
               });
             },
-            child: const Text('OK'),
+            child: const Text('OK', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -292,45 +300,38 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
             controller: controller,
             onDetect: _onDetect,
           ),
-          SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/stampa-logo.png', // Replace "QR Scanner" with logo
+                    height: 400, // Adjust size as needed
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: FadeTransition(
+                  opacity: _pulseAnimation,
+                  child: Column(
                     children: [
-                      const SizedBox(width: 10),
                       Text(
-                        'QR Scanner',
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                              fontSize: 28,
+                        'Apunta al QR del cliente',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
                             ),
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 50),
-                  child: FadeTransition(
-                    opacity: _pulseAnimation,
-                    child: Column(
-                      children: [
-                        Text(
-                          'Apunta al QR del cliente',
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
